@@ -23,9 +23,6 @@ class FileProcessor(wx.Frame):
         vbox.Add(self.save_button, flag=wx.ALL | wx.ALIGN_RIGHT, border=10)
         self.save_button.Bind(wx.EVT_BUTTON, self.on_save)
 
-
-        
-
         panel.SetSizer(vbox)
         self.Centre()
         self.Show()
@@ -70,24 +67,22 @@ class FileProcessor(wx.Frame):
             wx.MessageBox(f"An error occurred:\n{e}", "Error", wx.ICON_ERROR)
 
     def on_save(self, event):
-      if not hasattr(self, 'df_filtered') or self.df_filtered.empty:
-          wx.MessageBox("No data to save. Please submit a file first.", "Error", wx.ICON_ERROR)
-          return
+        if not hasattr(self, 'df_filtered') or self.df_filtered.empty:
+            wx.MessageBox("No data to save. Please submit a file first.", "Error", wx.ICON_ERROR)
+            return
 
-      with wx.FileDialog(self, "Save CSV file", wildcard="CSV files (*.csv)|*.csv",
-                       style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as saveFileDialog:
-        if saveFileDialog.ShowModal() == wx.ID_CANCEL:
-            return  # User cancelled
+        with wx.FileDialog(self, "Save CSV file", wildcard="CSV files (*.csv)|*.csv",
+                           style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as saveFileDialog:
+            if saveFileDialog.ShowModal() == wx.ID_CANCEL:
+                return  # User cancelled
 
-        save_path = saveFileDialog.GetPath()
-        try:
-            # Use Pandas to save the DataFrame to the selected file path
-            self.df_filtered.to_csv(save_path, index=False)
-            wx.MessageBox("CSV file saved successfully!", "Success", wx.ICON_INFORMATION)
-        except Exception as e:
-            wx.MessageBox(f"Failed to save file:\n{e}", "Error", wx.ICON_ERROR)
-
-
+            save_path = saveFileDialog.GetPath()
+            try:
+                # Use Pandas to save the DataFrame to the selected file path
+                self.df_filtered.to_csv(save_path, index=False)
+                wx.MessageBox("CSV file saved successfully!", "Success", wx.ICON_INFORMATION)
+            except Exception as e:
+                wx.MessageBox(f"Failed to save file:\n{e}", "Error", wx.ICON_ERROR)
 
 
 class MyApp(wx.App):
@@ -95,8 +90,8 @@ class MyApp(wx.App):
         self.frame = FileProcessor()
         return True
 
+
 if __name__ == "__main__":
     app = MyApp()
     app.MainLoop()
-
 
